@@ -15,6 +15,7 @@ class Card:
             sys.exit()
 
         self.spell_type = self.card.type_line()
+        self.mana_cost = self.getManaCost()
 
         self.owner = None
         self.tapped = False
@@ -42,7 +43,44 @@ class Card:
         elif 'Planeswalker' in self.spell_type:
             pass
         else:
-            raise RuntimeError('A card had an unrecognized card type')
+            print(self.spell_type)
+            raise RuntimeError('A card had an unrecognized or unsupported card type')
+
+    def getManaCost(self):
+        cost = self.card.mana_cost()
+        cost = cost.split('}')
+
+        for value in cost:
+            cost[cost.index(value)] = value.lstrip("{")
+        cost.remove('')
+        
+        mana_cost = {
+            'W':0,
+            'U':0,
+            'B':0,
+            'R':0,
+            'G':0,
+            'generic':0
+        }
+
+        for symbol in cost:
+            if symbol == 'W':
+                mana_cost['W'] += 1
+            elif symbol == 'U':
+                mana_cost['U'] += 1
+            elif symbol == 'B':
+                mana_cost['B'] += 1
+            elif symbol == 'R':
+                mana_cost['R'] += 1
+            elif symbol == 'G':
+                mana_cost['G'] += 1
+            else:
+                try:
+                    mana_cost['generic'] += int(symbol)
+                except ValueError:
+                    print('Unsupported mana value')
+        
+        return mana_cost
     
 #    def upkeepTrigger(self):
 #        if 'Land' in self.spell_type:
@@ -67,11 +105,6 @@ class Card:
 #           pass
 #        else:
 #            raise RuntimeError('A card had an unrecognized card type')
-    
-    def findType(self):
-        time.sleep(.2)
-        self.card = scrython.cards.Named(exact=self.name)
-        return self.card.type_line()
 
-#test = Card('Forest')
-#print(test.spell_type)
+#test = Card('Mountain')
+#print(test.getManaCost())

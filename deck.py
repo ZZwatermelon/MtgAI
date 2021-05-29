@@ -22,8 +22,10 @@ class Deck:
         
 
         random.shuffle(self.cards)
+
+        print("Initialized Deck")
     
-    def drawCards(self, amount):
+    def drawCards(self, amount: int):
         drawn_cards = []
 
         if amount > len(self.cards):
