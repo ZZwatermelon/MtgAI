@@ -1,18 +1,39 @@
+import scrython
+import time
+import sys
+
+from scrython.foundation import ScryfallError
 
 class Card:
-    def __init__(self, name, spell_type):
+    def __init__(self, name):
         self.name = name
-        self.spell_type = spell_type
-    
+        try:
+            time.sleep(.15)
+            self.card = scrython.cards.Named(exact=self.name)
+        except ScryfallError:
+            print(f"{self.name} was not found")
+            sys.exit()
+
+        self.spell_type = self.card.type_line()
+
+        self.owner = None
+
     def play(self):
-        if self.spell_type == 'land':
+        if 'Land' in self.spell_type:
             pass
-        elif self.spell_type == 'creature':
+        elif 'Creature' in self.spell_type:
             pass
-        elif self.spell_type == 'instant':
+        elif 'Instant' in self.spell_type:
             pass
-        elif self.spell_type == 'sorcery':
+        elif 'Sorcery' in self.spell_type:
             pass
         else:
             raise RuntimeError('A card had an unrecognized card type')
-        
+    
+    def findType(self):
+        time.sleep(.2)
+        self.card = scrython.cards.Named(exact=self.name)
+        return self.card.type_line()
+
+#test = Card('Forest')
+#print(test.spell_type)

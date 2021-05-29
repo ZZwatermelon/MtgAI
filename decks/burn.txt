@@ -1,3 +1,3 @@
-1x Lightning Bolt
-1x Mountain
-1x Lava Axe
+10x Lightning Bolt
+20x Mountain
+10x Lava Axe

@@ -1,10 +1,17 @@
+from deck import Deck
 
 class Player:
-    def __innit__(self, starting_life, deck):
+    def __init__(self, starting_life, deck):
         self.hand = []
         self.life_total = starting_life
-        self.library = deck
+        self.library = Deck(deck)
         self.graveyard = []
+
+        for card in self.library.cards:
+            card.owner = self
+
+        for card in self.library.drawCards(7):
+            self.hand.append(card)
     
     def lose_life(self, amount):
         self.life_total -= amount
