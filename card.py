@@ -17,8 +17,20 @@ class Card:
         self.spell_type = self.card.type_line()
 
         self.owner = None
+        self.tapped = False
+        self.controller = None
 
-    def play(self):
+        if 'Creature' in self.spell_type:
+            self.base_power = self.card.power()
+            self.base_toughness = self.card.toughness()
+
+            self.current_power = self.base_power
+            self.current_toughness = self.base_toughness
+        
+        if 'Planeswalker' in self.spell_type:
+            self.loyalty = self.card.loyalty()
+
+    def play(self, X = 0):
         if 'Land' in self.spell_type:
             pass
         elif 'Creature' in self.spell_type:
@@ -27,8 +39,34 @@ class Card:
             pass
         elif 'Sorcery' in self.spell_type:
             pass
+        elif 'Planeswalker' in self.spell_type:
+            pass
         else:
             raise RuntimeError('A card had an unrecognized card type')
+    
+#    def upkeepTrigger(self):
+#        if 'Land' in self.spell_type:
+#            pass
+#        elif 'Creature' in self.spell_type:
+#            pass
+#        elif 'Instant' in self.spell_type:
+#            pass
+#        elif 'Sorcery' in self.spell_type:
+#           pass
+#        else:
+#            raise RuntimeError('A card had an unrecognized card type')
+#    
+#   def deathTrigger(self, death_type = None):
+#        if 'Land' in self.spell_type:
+#           pass
+#       elif 'Creature' in self.spell_type:
+#           pass
+#        elif 'Instant' in self.spell_type:
+#            pass
+#        elif 'Sorcery' in self.spell_type:
+#           pass
+#        else:
+#            raise RuntimeError('A card had an unrecognized card type')
     
     def findType(self):
         time.sleep(.2)

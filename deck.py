@@ -26,6 +26,9 @@ class Deck:
     def drawCards(self, amount):
         drawn_cards = []
 
+        if amount > len(self.cards):
+            self.cards[0].owner.milled = True
+
         for e in range(amount):
             drawn_cards.append(self.cards[0])
             self.cards.remove(self.cards[0])

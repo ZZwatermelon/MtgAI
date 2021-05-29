@@ -7,6 +7,10 @@ class Player:
         self.library = Deck(deck)
         self.graveyard = []
 
+        self.lost = False
+
+        self.milled = False
+
         for card in self.library.cards:
             card.owner = self
 
