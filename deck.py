@@ -2,9 +2,10 @@ import random
 from card import Card
 
 class Deck:
-    def __init__(self, deckFile):
+    def __init__(self, deckFile, owner):
         self.card_names = []
         self.cards = []
+        self.owner = owner
 
         with open("decks\\" + deckFile, 'r') as f:
             deck_list = f.read()
@@ -29,7 +30,7 @@ class Deck:
         drawn_cards = []
 
         if amount > len(self.cards):
-            self.cards[0].owner.milled = True
+            self.owner.milled = True
 
         for e in range(amount):
             drawn_cards.append(self.cards[0])

@@ -1,9 +1,8 @@
 
 class Spell:
-    def __init__(self, card, trigger, targets = None):
+    def __init__(self, card, trigger):
         self.card = card
         self.trigger = trigger
-        self.targets = targets
     
     def resolve(self):
         pass

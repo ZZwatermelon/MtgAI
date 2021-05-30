@@ -2,10 +2,10 @@ from deck import Deck
 from card import Card
 
 class Player:
-    def __init__(self, starting_life, deck: Deck):
+    def __init__(self, starting_life, deckFile):
         self.hand = []
         self.life_total = starting_life
-        self.library = Deck(deck)
+        self.library = Deck(deckFile, self)
         self.graveyard = []
         
         self.available_mana = {
@@ -16,6 +16,10 @@ class Player:
             'G':0,
             'generic': 0
         }
+
+        self.lands_played = 0
+
+        self.last_action = None
 
         self.lost = False
 
