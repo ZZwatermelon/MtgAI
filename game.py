@@ -156,14 +156,29 @@ class Game():
         elif (self.phase == Phases.PRE_COMBAT_MAIN_PHASE or self.phase == Phases.POST_COMBAT_MAIN_PHASE) and self.stack != []:
             legal_moves = self.getLegalMoves('fast', self.priority_player)
         
-        for move in legal_moves:
-            temp_copy = copy.deepcopy(self)
-            if move == 'pass':
-                temp_copy.makeMove('pass')
-            else:
-                temp_copy.makeMove(Spell(move, 'cast'))
+        if len(legal_moves) == 1:
+            self.makeMove(legal_moves[0])
+        else:
+            possible_states = []
+            for move in legal_moves:
+                temp_copy = copy.deepcopy(self)
+                if move == 'pass':
+                    temp_copy.makeMove('pass')
+                else:
+                    temp_copy.makeMove(Spell(move, 'cast'))
+                
+                temp_copy.resolveStack()
+                possible_states.append(temp_copy)
             
-            temp_copy.resolveStack()
+            state_scores = []
+            for state in possible_states:
+                state_scores.append(self.compareGameStates(state))
+        
+    def compareGameStates(self, temp_game):
+        score = 0
+        temp_game.getAvailableMana(temp_game.active_player)
+        
+
     
     def startChain(self):
         while not self.playersPassed():

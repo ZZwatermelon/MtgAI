@@ -43,6 +43,5 @@ class Player:
         print(f"Available Mana: {self.available_mana}")
         for mana in card.mana_cost:
             if card.mana_cost[mana] > self.available_mana[mana]:
-                print(card.mana_cost)
                 return False
         return True
